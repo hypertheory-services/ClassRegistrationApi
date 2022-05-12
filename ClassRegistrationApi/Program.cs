@@ -13,8 +13,15 @@ builder.Services.AddRouting(options =>
 // Config and Options
 builder.Services.Configure<MongoConnectionOptions>(builder.Configuration.GetSection(MongoConnectionOptions.SectionName));
 // Add services to the container.
+var scheduleUrl = builder.Configuration.GetValue<string>("scheduleApiUrl");
 
-builder.Services.AddTransient<ILookupCourseSchedules, TrivialCourseScheduleLookup>();
+
+builder.Services.AddHttpClient<ScheduleHttpAdapter>(client =>
+{
+    client.BaseAddress = new Uri(scheduleUrl);
+});
+
+builder.Services.AddTransient<ILookupCourseSchedules, ScheduleApiLookup>();
 
 builder.Services.AddSingleton<GenericMongoAdapter>();
 
