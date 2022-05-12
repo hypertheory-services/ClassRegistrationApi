@@ -1,5 +1,6 @@
 ﻿using ClassRegistrationApi.Adapters;
 using HypertheoryApiUtils;
+using ClassRegistrationApi.Domain;
 
 var builder = WebApplication.CreateBuilder(args);
 // Routing
@@ -12,6 +13,8 @@ builder.Services.AddRouting(options =>
 // Config and Options
 builder.Services.Configure<MongoConnectionOptions>(builder.Configuration.GetSection(MongoConnectionOptions.SectionName));
 // Add services to the container.
+
+builder.Services.AddTransient<ILookupCourseSchedules, TrivialCourseScheduleLookup>();
 
 builder.Services.AddSingleton<GenericMongoAdapter>();
 
