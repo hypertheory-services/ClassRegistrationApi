@@ -23,7 +23,7 @@ builder.Services.AddHttpClient<ScheduleHttpAdapter>(client =>
 
 builder.Services.AddTransient<ILookupCourseSchedules, ScheduleApiLookup>();
 
-builder.Services.AddSingleton<GenericMongoAdapter>();
+builder.Services.AddSingleton<RegistrationMongoAdapter>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

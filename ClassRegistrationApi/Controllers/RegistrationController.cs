@@ -17,7 +17,7 @@ public class RegistrationController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<Registration>> AddARegistration([FromBody] RegistrationRequest request)
+    public async Task<ActionResult<Models.Registration>> AddARegistration([FromBody] RegistrationRequest request)
     {
         // If the thing is valid...
         // --- Validate that the course is offered on the date.
@@ -28,7 +28,7 @@ public class RegistrationController : ControllerBase
         {
             return BadRequest("Sorry, that course isn't available then.");
         }
-        var response = new Registration("99", request);
+        var response = new Models.Registration("99", request);
 
         return Ok(response);
 
