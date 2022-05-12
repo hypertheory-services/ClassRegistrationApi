@@ -10,10 +10,12 @@ public class RegistrationController : ControllerBase
 {
 
     private readonly ILookupCourseSchedules _scheduleLookup;
+    private readonly ICreateReservations _reservationCreator;
 
-    public RegistrationController(ILookupCourseSchedules scheduleLookup)
+    public RegistrationController(ILookupCourseSchedules scheduleLookup, ICreateReservations reservationCreator)
     {
         _scheduleLookup = scheduleLookup;
+        _reservationCreator = reservationCreator;
     }
 
     [HttpPost]
@@ -28,10 +30,11 @@ public class RegistrationController : ControllerBase
         {
             return BadRequest("Sorry, that course isn't available then.");
         }
-        var response = new Models.Registration("99", request);
+        //var response = new Models.Registration("99", request);
+        Models.Registration response = await _reservationCreator.CreateReservationForAsync(request);
 
         return Ok(response);
 
     }
 }
-// {name: 'Henry Gonzalez', dateOfCourse: '2022-06-07T00:00:00', course: '62797b1a1823357feb3756ac'}
+

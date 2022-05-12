@@ -22,7 +22,7 @@ builder.Services.AddHttpClient<ScheduleHttpAdapter>(client =>
 });
 
 builder.Services.AddTransient<ILookupCourseSchedules, ScheduleApiLookup>();
-
+builder.Services.AddScoped<ICreateReservations, MongoReservationProcessor>();
 builder.Services.AddSingleton<RegistrationMongoAdapter>();
 
 builder.Services.AddControllers();
